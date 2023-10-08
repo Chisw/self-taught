@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+<title>Vocabulary</title>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<style>
+
+#app {
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 6px 12px;
+}
+
+.word-list .list-item {
+  padding: 12px 0 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.word-list .list-item .word {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4px;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.word-list .list-item .explanations {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.word-list .list-item .explanations .ex-type {
+  margin-bottom: 8px;
+  width: 15%;
+  color: gray;
+  text-align: right;
+}
+
+.word-list .list-item .explanations .ex-text {
+  margin-bottom: 8px;
+  padding-left: 2%;
+  width: 83%;
+}
+
+.pagination {
+  padding: 10px 0 20px 0;
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+  <div id="app">
+    <div class="word-list">
+      <div
+        v-for="item in displayWords"
+        class="list-item"
+      >
+        <div class="word">
+          <span>{{ item.word }}</span>
+          <el-button-group>
+            <el-button
+              size="mini"
+              @click="handleAudioPlay(item.word, 'us')"
+            >
+              🇺🇸
+            </el-button>
+            <el-button
+              size="mini"
+              @click="handleAudioPlay(item.word, 'uk')"
+            >
+              🇬🇧
+            </el-button>
+            <el-button
+              size="mini"
+              icon="el-icon-remove-outline"
+            >
+            </el-button>
+          </el-button-group>
+        </div>
+        <div class="explanations">
+          <div
+            v-for="(ex, exIndex) in item.explanations"
+            :class="exIndex % 2 === 0 ? 'ex-type' : 'ex-text'"
+          >
+            {{ ex }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pagination">
+      <el-pagination
+        small
+        layout="total, jumper"
+        :total="words.length"
+        :page-size="pageSize"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
+      <el-pagination
+        small
+        layout="prev, pager, next"
+        :total="words.length"
+        :page-size="pageSize"
+        :current-page="currentPage"
+        @current-change="handleCurrentChange"
+       >
+       </el-pagination>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+<script src="https://unpkg.com/element-ui@2.13.0/lib/index.js"></script>
+<script src="./vocabulary.data.js"></script>
+<script>
+
+const vm = new Vue({
+  el: '#app',
+  
+  data() {
+    return {
+      words,
+      currentPage: 1,
+      pageSize: 20,
+    }
+  },
+
+  computed: {
+    displayWords() {
+      const start = (this.currentPage - 1) * this.pageSize
+      const end = start + this.pageSize
+      return this.words.filter((word, wordIndex) => wordIndex >= start && wordIndex < end)
+    },
+  },
+
+  methods: {
+    handleCurrentChange(page) {
+      window.scrollTo({ top: 0 })
+      this.currentPage = page
+    },
+    
+    handleAudioPlay(word, type) {
+      const audio = new Audio()
+      audio.src = `http://dict.youdao.com/dictvoice?type=${type === 'us' ? 0 : 1}&audio=${word}`
+      audio.play()
+    },
+  },
+})
+
+</script>
+</html>
