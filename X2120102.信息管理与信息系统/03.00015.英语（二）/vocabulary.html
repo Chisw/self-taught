@@ -7,27 +7,39 @@
 <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
 <style>
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 #app {
   margin: 0 auto;
   max-width: 640px;
+}
+
+.word-list {
   padding: 6px 12px;
 }
 
 .word-list .list-item {
-  padding: 12px 0 8px 0;
+  padding: 8px 0;
   border-bottom: 1px solid #eee;
 }
 
 .word-list .list-item .word {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 4px;
+  align-items: center;
   font-size: 18px;
   font-weight: 900;
 }
 
+.word-list .list-item .word .fade {
+  opacity: .2;
+}
+
 .word-list .list-item .explanations {
+  margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
   font-size: 14px;
@@ -47,7 +59,7 @@
 }
 
 .pagination {
-  padding: 10px 0 20px 0;
+  padding: 10px 0 30px 0;
   text-align: center;
 }
 
@@ -61,15 +73,19 @@
         class="list-item"
       >
         <div class="word">
-          <span>{{ item.word }}</span>
+          <span :class="hiddenWords.includes(item.word) ? 'fade' : ''">
+            {{ item.word }}
+          </span>
           <el-button-group>
             <el-button
+              v-if="!hiddenWords.includes(item.word)"
               size="mini"
               @click="handleAudioPlay(item.word, 'us')"
             >
               🇺🇸
             </el-button>
             <el-button
+              v-if="!hiddenWords.includes(item.word)"
               size="mini"
               @click="handleAudioPlay(item.word, 'uk')"
             >
@@ -77,12 +93,16 @@
             </el-button>
             <el-button
               size="mini"
-              icon="el-icon-remove-outline"
+              :icon="`el-icon-${hiddenWords.includes(item.word) ? 'plus' : 'minus'}`"
+              @click="handleHideSwitch(item.word)"
             >
             </el-button>
           </el-button-group>
         </div>
-        <div class="explanations">
+        <div
+          v-if="!hiddenWords.includes(item.word)"
+          class="explanations"
+        >
           <div
             v-for="(ex, exIndex) in item.explanations"
             :class="exIndex % 2 === 0 ? 'ex-type' : 'ex-text'"
@@ -101,11 +121,13 @@
         @current-change="handleCurrentChange"
       >
       </el-pagination>
+      <br/>
       <el-pagination
-        small
+        background
         layout="prev, pager, next"
         :total="words.length"
         :page-size="pageSize"
+        :pager-count="5"
         :current-page="currentPage"
         @current-change="handleCurrentChange"
        >
@@ -126,7 +148,13 @@ const vm = new Vue({
       words,
       currentPage: 1,
       pageSize: 20,
+      hiddenWords: [],
     }
+  },
+
+  mounted() {
+    this.currentPage = +(localStorage.getItem('VOCA_PAGE') || '1')
+    this.hiddenWords = JSON.parse(localStorage.getItem('VOCA_HIDDEN_WORDS') || '[]')
   },
 
   computed: {
@@ -141,12 +169,22 @@ const vm = new Vue({
     handleCurrentChange(page) {
       window.scrollTo({ top: 0 })
       this.currentPage = page
+      localStorage.setItem('VOCA_PAGE', page)
     },
     
     handleAudioPlay(word, type) {
       const audio = new Audio()
       audio.src = `http://dict.youdao.com/dictvoice?type=${type === 'us' ? 0 : 1}&audio=${word}`
       audio.play()
+    },
+
+    handleHideSwitch(word) {
+      if (this.hiddenWords.includes(word)) {
+        this.hiddenWords = this.hiddenWords.filter(w => w !== word)
+      } else {
+        this.hiddenWords.push(word)
+      }
+      localStorage.setItem('VOCA_HIDDEN_WORDS', JSON.stringify(this.hiddenWords))
     },
   },
 })
