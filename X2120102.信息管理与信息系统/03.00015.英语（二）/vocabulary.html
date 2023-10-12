@@ -23,7 +23,10 @@
 
 .word-list .list-item {
   padding: 8px 0;
-  border-bottom: 1px solid #eee;
+}
+
+.word-list .list-item + .list-item {
+  border-top: 1px solid #eee;
 }
 
 .word-list .list-item .word {
@@ -59,8 +62,15 @@
 }
 
 .pagination {
-  padding: 10px 0 30px 0;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 6px 0;
   text-align: center;
+  background-color: rgba(255, 255, 255, .1);
+  backdrop-filter: blur(4px);
+  border-top: 1px solid #efefef;
 }
 
 </style>
@@ -114,24 +124,15 @@
     </div>
     <div class="pagination">
       <el-pagination
-        small
-        layout="total, jumper"
-        :total="words.length"
-        :page-size="pageSize"
-        @current-change="handleCurrentChange"
-      >
-      </el-pagination>
-      <br/>
-      <el-pagination
         background
         layout="prev, pager, next"
         :total="words.length"
         :page-size="pageSize"
-        :pager-count="5"
+        :pager-count="3"
         :current-page="currentPage"
         @current-change="handleCurrentChange"
-       >
-       </el-pagination>
+      >
+      </el-pagination>
     </div>
   </div>
 </body>
@@ -147,7 +148,7 @@ const vm = new Vue({
     return {
       words,
       currentPage: 1,
-      pageSize: 20,
+      pageSize: 5,
       hiddenWords: [],
     }
   },
