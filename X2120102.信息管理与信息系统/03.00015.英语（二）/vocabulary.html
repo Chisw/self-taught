@@ -73,6 +73,14 @@
   border-top: 1px solid #efefef;
 }
 
+.el-pagination__jump {
+  margin: 0 4px 0 0;
+}
+
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li {
+  margin: 0 2px;
+}
+
 </style>
 </head>
 <body>
@@ -125,7 +133,7 @@
     <div class="pagination">
       <el-pagination
         background
-        layout="prev, pager, next"
+        layout="jumper, prev, pager, next"
         :total="words.length"
         :page-size="pageSize"
         :pager-count="3"
