@@ -20,26 +20,32 @@
 
 .word-list {
   padding: 6px 12px;
-  padding-bottom: 60px;
 }
 
 .word-list .list-item {
   padding: 8px 0;
 }
 
-.word-list .list-item + .list-item {
-  border-top: 1px solid #eee;
+.word-list .list-item {
+  border-bottom: 1px solid #eee;
 }
 
-.word-list .list-item .word {
+.word-list .list-item .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.word-list .list-item .header .tag {
+  margin: 0 2px;
+}
+
+.word-list .list-item .header .word {
   font-size: 18px;
   font-weight: 900;
 }
 
-.word-list .list-item .word .fade {
+.word-list .list-item .header .word.fade {
   opacity: .2;
 }
 
@@ -63,6 +69,14 @@
   width: 83%;
 }
 
+.io {
+  padding: 6px 12px;
+  padding-bottom: 60px;
+  text-align: right;
+  font-size: 12px;
+  color: gray;
+}
+
 .pagination {
   position: fixed;
   right: 0;
@@ -83,6 +97,10 @@
   margin: 0 2px;
 }
 
+.el-message-box {
+  max-width: 100% !important;
+}
+
 </style>
 </head>
 <body>
@@ -90,22 +108,40 @@
     <div class="word-list">
       <div
         v-for="item in displayWords"
+        :key="item.word"
         class="list-item"
       >
-        <div class="word">
-          <span :class="hiddenWords.includes(item.word) ? 'fade' : ''">
-            {{ item.word }}
-          </span>
+        <div class="header">
+          <div>
+            <span
+              class="word"
+              :class="passedWords.includes(item.word) ? 'fade' : ''"
+            >
+              {{ item.word }}
+            </span>
+            <span v-if="passedWords.includes(item.word)">
+              <el-tag
+                v-for="(ex, exIndex) in item.explanations"
+                v-if="exIndex % 2 === 0"
+                :key="exIndex"
+                size="mini"
+                type="info"
+                class="tag"
+              >
+                {{  ex }}
+              </el-tag>
+            </span>
+          </div>
           <el-button-group>
             <el-button
-              v-if="!hiddenWords.includes(item.word)"
+              v-if="!passedWords.includes(item.word)"
               size="mini"
               @click="handleAudioPlay(item.word, 'us')"
             >
               🇺🇸
             </el-button>
             <el-button
-              v-if="!hiddenWords.includes(item.word)"
+              v-if="!passedWords.includes(item.word)"
               size="mini"
               @click="handleAudioPlay(item.word, 'uk')"
             >
@@ -113,14 +149,14 @@
             </el-button>
             <el-button
               size="mini"
-              :icon="`el-icon-${hiddenWords.includes(item.word) ? 'plus' : 'minus'}`"
+              :icon="`el-icon-${passedWords.includes(item.word) ? 'plus' : 'minus'}`"
               @click="handleHideSwitch(item.word)"
             >
             </el-button>
           </el-button-group>
         </div>
         <div
-          v-if="!hiddenWords.includes(item.word)"
+          v-if="!passedWords.includes(item.word)"
           class="explanations"
         >
           <div
@@ -132,6 +168,27 @@
         </div>
       </div>
     </div>
+
+    <div class="io">
+      <el-button-group>
+        <el-button size="mini">
+          {{ passedWords.length }} passed / {{ words.length }}
+        </el-button>
+        <el-button
+          icon="el-icon-download"
+          size="mini"
+          @click="handleExport"
+        >
+        </el-button>
+        <el-button
+          icon="el-icon-upload2"
+          size="mini"
+          @click="handleImport"
+        >
+        </el-button>
+      </el-button-group>
+    </div>
+
     <div class="pagination">
       <el-pagination
         background
@@ -143,6 +200,14 @@
         @current-change="handleCurrentChange"
       >
       </el-pagination>
+    </div>
+
+    <div style="width: 0; height: 0; overflow: hidden;">
+      <input
+        type="file"
+        ref="fileInputRef"
+        @change="handleFileChange"
+      />
     </div>
   </div>
 </body>
@@ -159,13 +224,13 @@ const vm = new Vue({
       words,
       currentPage: 1,
       pageSize: 6,
-      hiddenWords: [],
+      passedWords: [],
     }
   },
 
   mounted() {
-    this.currentPage = +(localStorage.getItem('VOCA_PAGE') || '1')
-    this.hiddenWords = JSON.parse(localStorage.getItem('VOCA_HIDDEN_WORDS') || '[]')
+    this.currentPage = +(localStorage.getItem('VOCABULARY_PAGE') || '1')
+    this.passedWords = JSON.parse(localStorage.getItem('VOCABULARY_PASSED_WORDS') || '[]')
 
     const nextButton = document.querySelector('.btn-next')
     document.addEventListener('dblclick', () => {
@@ -185,7 +250,7 @@ const vm = new Vue({
     handleCurrentChange(page) {
       window.scrollTo({ top: 0 })
       this.currentPage = page
-      localStorage.setItem('VOCA_PAGE', page)
+      localStorage.setItem('VOCABULARY_PAGE', page)
     },
     
     handleAudioPlay(word, type) {
@@ -195,12 +260,53 @@ const vm = new Vue({
     },
 
     handleHideSwitch(word) {
-      if (this.hiddenWords.includes(word)) {
-        this.hiddenWords = this.hiddenWords.filter(w => w !== word)
+      if (this.passedWords.includes(word)) {
+        this.passedWords = this.passedWords.filter(w => w !== word)
       } else {
-        this.hiddenWords.push(word)
+        this.passedWords.push(word)
       }
-      localStorage.setItem('VOCA_HIDDEN_WORDS', JSON.stringify(this.hiddenWords))
+      localStorage.setItem('VOCABULARY_PASSED_WORDS', JSON.stringify(this.passedWords))
+    },
+
+    handleExport() {
+      const blob = new Blob([JSON.stringify(this.passedWords)])
+      const a = document.createElement('a')
+      a.href = URL.createObjectURL(blob)
+      a.download = `PASSED_WORDS_${Date.now()}.json`
+      a.click()
+    },
+
+    handleImport() {
+      this.$refs.fileInputRef.click()
+    },
+
+    handleFileChange(e) {
+      const file = event.target.files[0]
+      const fileReader = new FileReader()
+      fileReader.onload = () => {
+        const importedPassedWords = JSON.parse(fileReader.result)
+        const existedPassedWords = importedPassedWords.filter(w => this.passedWords.includes(w))
+        const mergedPassedWords = Array.from(new Set([...this.passedWords, ...importedPassedWords]))
+
+        this.$confirm(`
+          导入 ${importedPassedWords.length} 个已过单词？<br/>
+          - 当前 ${this.passedWords.length} 个<br/>
+          - 重复 ${existedPassedWords.length} 个<br/>
+          - 新增 ${importedPassedWords.length - existedPassedWords.length} 个<br/>
+        `,
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          dangerouslyUseHTMLString: true,
+        }).then(() => {
+          this.passedWords = mergedPassedWords
+          localStorage.setItem('VOCABULARY_PASSED_WORDS', JSON.stringify(mergedPassedWords))
+        })
+
+      }
+      fileReader.readAsText(file, 'UTF-8')
     },
   },
 })
