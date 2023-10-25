@@ -10,6 +10,7 @@
 * {
   margin: 0;
   padding: 0;
+  user-select: none;
 }
 
 #app {
@@ -165,6 +166,11 @@ const vm = new Vue({
   mounted() {
     this.currentPage = +(localStorage.getItem('VOCA_PAGE') || '1')
     this.hiddenWords = JSON.parse(localStorage.getItem('VOCA_HIDDEN_WORDS') || '[]')
+
+    const nextButton = document.querySelector('.btn-next')
+    document.addEventListener('dblclick', () => {
+        nextButton.click()
+      })
   },
 
   computed: {
