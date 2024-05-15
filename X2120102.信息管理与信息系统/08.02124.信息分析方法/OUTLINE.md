@@ -686,7 +686,7 @@
 
 科学生产率的平方反比律：
 
-> ![f(x)=\frac{C}{x^a}](https://latex.codecogs.com/svg.latex?f(x)=\frac{C}{x^a})
+> ![f(x)=\frac{C}{x^a}](../img/X2120102.02124.06.01.svg)
 
 洛特卡定律的发展：普赖斯定律
 
@@ -707,7 +707,7 @@
 
 布拉德福定律的区域分析：a 为布拉德福常数
 
-> ![n_1:n_2:n_3=1:a:a^2](https://latex.codecogs.com/svg.latex?n_1:n_2:n_3=1:a:a^2)
+> ![n_1:n_2:n_3=1:a:a^2](../img/X2120102.02124.06.02.svg)
 
 - 第一区：核心区，数量不多但效率最高
 - 第二区：数量较多的中等效率
@@ -747,7 +747,7 @@ f * r = c
 
 普赖斯指数增长模型：🎯
 
-> ![F(t)=ae^{kt}](https://latex.codecogs.com/svg.latex?F(t)=ae^{kt})
+> ![F(t)=ae^{kt}](../img/X2120102.02124.06.03.svg)
 
 普莱斯指数定律：科学文献增长与时间成指数函数关系，是针对累积量而非增加量
 
@@ -755,7 +755,7 @@ f * r = c
 
 逻辑曲线：文献的增长是具有阶段性，一开始符合指数定律，然后开始变小，最后缓慢增加 🎯
 
-> ![F(t)=\frac{K}{1+ae^{-bt}}](https://latex.codecogs.com/svg.latex?F(t)=\frac{K}{1+ae^{-bt}})
+> ![F(t)=\frac{K}{1+ae^{-bt}}](../img/X2120102.02124.06.04.svg)
 
 逻辑曲线局限性：是在大量统计基础上得到的结论；时间趋向无穷时增长率为零不现实
 
@@ -772,7 +772,7 @@ f * r = c
 
 布鲁克斯负指数模型：把文献被利用的程度与文献“年龄”的关系视为一种负指数函数关系 🎯
 
-> ![C(t)=Ke^{-at}](https://latex.codecogs.com/svg.latex?C(t)=Ke^{-at})
+> ![C(t)=Ke^{-at}](../img/X2120102.02124.06.05.svg)
 
 负指数曲线：表现了文献的使用随时间而衰减的全过程，即文献老化过程
 
@@ -780,7 +780,7 @@ f * r = c
 
 巴-凯老化方程：巴尔顿 & 凯普勒，文献被引率与时间的关系式 🎯
 
-> ![y=1-(\frac{a}{e^x}+\frac{b}{e^{2x}})](https://latex.codecogs.com/svg.latex?y=1-(\frac{a}{e^x}+\frac{b}{e^{2x}}))
+> ![y=1-(\frac{a}{e^x}+\frac{b}{e^{2x}})](../img/X2120102.02124.06.06.svg)
 
 ### 四、引文分析
 
@@ -950,9 +950,9 @@ f * r = c
 
 常用概念：
 
-1. 实际值：实际观测到的研究对象的特征值 ![y_i](https://latex.codecogs.com/svg.latex?y_i)
-2. 理论值：根据得到的数学模型计算出的理论值 ![\widehat{y}_i](https://latex.codecogs.com/svg.latex?\widehat{y}_i)
-3. 预测值：计算出来的未来理论值 ![y_0](https://latex.codecogs.com/svg.latex?y_0)
+1. 实际值：实际观测到的研究对象的特征值 ![y_i](../img/X2120102.02124.07.01.svg)
+2. 理论值：根据得到的数学模型计算出的理论值 ![\widehat{y}_i](../img/X2120102.02124.07.02.svg)
+3. 预测值：计算出来的未来理论值 ![y_0](../img/X2120102.02124.07.03.svg)
 
 ## 第二节 一元线性回归分析法 🎯
 
@@ -970,27 +970,27 @@ x 自变量，y 因变量，绘制散点图
 
 变差：一个因变量的某次观测值与这个因变量的平均值的差
 
-> ![y_i-\overline{y}](https://latex.codecogs.com/svg.latex?y_i-\overline{y})
+> ![y_i-\overline{y}](../img/X2120102.02124.07.04.svg)
 
 总变差平方和：各次观测值变差的平方和，由剩余平方和 Q、回归平方和 U 两部分组成
 
-> ![S_{yy}=\sum_{i=1}^{n}(y_i-\overline{y})^2=Q+U](https://latex.codecogs.com/svg.latex?S_{yy}=\sum_{i=1}^{n}(y_i-\overline{y})^2=Q+U)
+> ![S_{yy}=\sum_{i=1}^{n}(y_i-\overline{y})^2=Q+U](../img/X2120102.02124.07.05.svg)
 
 最小二乘原则：根据剩余平方和 Q 最小的原则来确定回归系数 a、b
 
-> ![a=\overline{y}-b\overline{x}](https://latex.codecogs.com/svg.latex?a=\overline{y}-b\overline{x})
+> ![a=\overline{y}-b\overline{x}](../img/X2120102.02124.07.06.svg)
 
-> ![b=\frac{\sum{(x_i-\overline{x})(y_i-\overline{y})}}{\sum{(x_i-\overline{x})^2}}](https://latex.codecogs.com/svg.latex?b=\frac{\sum{(x_i-\overline{x})(y_i-\overline{y})}}{\sum{(x_i-\overline{x})^2}})
+> ![b=\frac{\sum{(x_i-\overline{x})(y_i-\overline{y})}}{\sum{(x_i-\overline{x})^2}}](../img/X2120102.02124.07.07.svg)
 
 或：🎯
 
-> ![b=\frac{\sum{x_iy_i}-\overline{x}\sum{y_i}}{\sum{x^2_i}-\overline{x}\sum{x_i}}](https://latex.codecogs.com/svg.latex?b=\frac{\sum{x_iy_i}-\overline{x}\sum{y_i}}{\sum{x^2_i}-\overline{x}\sum{x_i}})
+> ![b=\frac{\sum{x_iy_i}-\overline{x}\sum{y_i}}{\sum{x^2_i}-\overline{x}\sum{x_i}}](../img/X2120102.02124.07.08.svg)
 > ---
-> ![\sum{x_i}=x_1+x_2+...+x_i](https://latex.codecogs.com/svg.latex?\sum{x_i}=x_1+x_2+...+x_i)
+> ![\sum{x_i}=x_1+x_2+...+x_i](../img/X2120102.02124.07.09.svg)
 >
-> ![\sum{x_iy_i}=x_1\cdot{y_1}+x_2\cdot{y_2}+...+x_i\cdot{y_i}](https://latex.codecogs.com/svg.latex?\sum{x_iy_i}=x_1\cdot{y_1}+x_2\cdot{y_2}+...+x_i\cdot{y_i})
+> ![\sum{x_iy_i}=x_1\cdot{y_1}+x_2\cdot{y_2}+...+x_i\cdot{y_i}](../img/X2120102.02124.07.10.svg)
 >
-> ![\overline{x}=\frac{1}{i}\sum{x_i}](https://latex.codecogs.com/svg.latex?\overline{x}=\frac{1}{i}\sum{x_i})
+> ![\overline{x}=\frac{1}{i}\sum{x_i}](../img/X2120102.02124.07.11.svg)
 
 ### 三、相关性检验
 
@@ -998,7 +998,7 @@ x 自变量，y 因变量，绘制散点图
 
 #### 公式一
 
-> ![r=\frac{\sum{(x_i-\overline{x})(y_i-\overline{y})}}{\sqrt{\sum(x_i-\overline{x})^2\cdot\sum{(y_i-\overline{y})^2}}}](https://latex.codecogs.com/svg.latex?r=\frac{\sum{(x_i-\overline{x})(y_i-\overline{y})}}{\sqrt{\sum(x_i-\overline{x})^2\cdot\sum{(y_i-\overline{y})^2}}})
+> ![r=\frac{\sum{(x_i-\overline{x})(y_i-\overline{y})}}{\sqrt{\sum(x_i-\overline{x})^2\cdot\sum{(y_i-\overline{y})^2}}}](../img/X2120102.02124.07.12.svg)
 
 - 公式来源：数理统计，理论性较强
 - 应用范围：只适用于一元线性回归相关系数的计算
@@ -1009,11 +1009,11 @@ x 自变量，y 因变量，绘制散点图
 
 #### 公式二
 
-> ![r=\sqrt{1-\frac{\sum{(y_i-\widehat{y_i})^2}}{\sum{(y_i-\overline{y})^2}}}](https://latex.codecogs.com/svg.latex?r=\sqrt{1-\frac{\sum{(y_i-\widehat{y_i})^2}}{\sum{(y_i-\overline{y})^2}}})
+> ![r=\sqrt{1-\frac{\sum{(y_i-\widehat{y_i})^2}}{\sum{(y_i-\overline{y})^2}}}](../img/X2120102.02124.07.13.svg)
 
 - 公式来源：方差分析，比较直观
 - 应用范围：可用于一元、二元、多元线性回归相关系数的计算
-- 计算所需数据：需求出回归方程及理论值 ![\widehat{y}_i](https://latex.codecogs.com/svg.latex?\widehat{y}_i)
+- 计算所需数据：需求出回归方程及理论值 ![\widehat{y}_i](../img/X2120102.02124.07.14.svg)
 - 是否可反映正、负相关：r 全为正值，看不出 y 与 x 的正负相关
 
 1. `0 <= |r| <= 1`，当 `|r|` 越接近 1 时，剩余平方和的值越接近于 0，则回归模型描述 y 与 x 的关系的近似程度越好
@@ -1029,7 +1029,7 @@ x 自变量，y 因变量，绘制散点图
 
 ### 四、预测及其置信区间
 
-> ![y=y_0\pm\sqrt{\frac{\sum{(y_i-\widehat{y}_i)^2}}{n-2}}\cdot{t_{\frac{a}{2}\cdot(n-2)}}\cdot\sqrt{1+\frac{1}{n}+\frac{(x_0-\overline{x})^2}{\sum{(x_i-\overline{x})^2}}}](https://latex.codecogs.com/svg.latex?y=y_0\pm\sqrt{\frac{\sum{(y_i-\widehat{y}_i)^2}}{n-2}}\cdot{t_{\frac{a}{2}\cdot(n-2)}}\cdot\sqrt{1+\frac{1}{n}+\frac{(x_0-\overline{x})^2}{\sum{(x_i-\overline{x})^2}}})
+> ![y=y_0\pm\sqrt{\frac{\sum{(y_i-\widehat{y}_i)^2}}{n-2}}\cdot{t_{\frac{a}{2}\cdot(n-2)}}\cdot\sqrt{1+\frac{1}{n}+\frac{(x_0-\overline{x})^2}{\sum{(x_i-\overline{x})^2}}}](../img/X2120102.02124.07.15.svg)
 
 ## 第三节 多元线性回归分析法
 
@@ -1037,7 +1037,7 @@ x 自变量，y 因变量，绘制散点图
 
 基本形式模型：🎯
 
-> ![y=a+b_1x_1+b_2x_2+...+b_mx_m=a+\sum_{k=1}^{m}b_kx_k](https://latex.codecogs.com/svg.latex?y=a+b_1x_1+b_2x_2+...+b_mx_m=a+\sum_{k=1}^{m}b_kx_k)
+> ![y=a+b_1x_1+b_2x_2+...+b_mx_m=a+\sum_{k=1}^{m}b_kx_k](../img/X2120102.02124.07.16.svg)
 
 建立多元线性回归方程的问题也就是求得多个回归系数的问题
 
@@ -1115,7 +1115,7 @@ x 自变量，y 因变量，绘制散点图
 
 > 🎯
 >
-> ![y=a+bt](https://latex.codecogs.com/svg.latex?y=a+bt)
+> ![y=a+bt](../img/X2120102.02124.08.01.svg)
 
 不一致系数 u 值越小，拟合得越好
 
@@ -1125,7 +1125,7 @@ x 自变量，y 因变量，绘制散点图
 
 > 🎯
 >
-> ![y=a+bt+ct^2](https://latex.codecogs.com/svg.latex?y=a+bt+ct^2)
+> ![y=a+bt+ct^2](../img/X2120102.02124.08.02.svg)
 
 ### 三、三次曲线
 
@@ -1133,7 +1133,7 @@ x 自变量，y 因变量，绘制散点图
 
 > 🎯
 >
-> ![y=a+bt+ct^2+dt^3](https://latex.codecogs.com/svg.latex?y=a+bt+ct^2+dt^3)
+> ![y=a+bt+ct^2+dt^3](../img/X2120102.02124.08.03.svg)
 
 ## 第三节 指数曲线法
 
@@ -1143,13 +1143,13 @@ x 自变量，y 因变量，绘制散点图
 
 > 🎯
 >
-> ![y=a\cdot{b^t}](https://latex.codecogs.com/svg.latex?y=a\cdot{b^t})
+> ![y=a\cdot{b^t}](../img/X2120102.02124.08.04.svg)
 
 ### 二、二次指数曲线法
 
 > 🎯
 >
-> ![y=a\cdot{b^t}\cdot{c^{t^2}}](https://latex.codecogs.com/svg.latex?y=a\cdot{b^t}\cdot{c^{t^2}})
+> ![y=a\cdot{b^t}\cdot{c^{t^2}}](../img/X2120102.02124.08.05.svg)
 
 ### 三、修正指数曲线法
 
@@ -1161,7 +1161,7 @@ x 自变量，y 因变量，绘制散点图
 
 > 🎯
 >
-> ![y=K-a\cdot{b^t}](https://latex.codecogs.com/svg.latex?y=K-a\cdot{b^t})
+> ![y=K-a\cdot{b^t}](../img/X2120102.02124.08.06.svg)
 
 在求式的系数 K，a，b 时，先将时间序列数据的项数 N 三等分，作为三个部分时间序列，即 `N=3n`
 
@@ -1188,7 +1188,7 @@ Logistic 曲线是由比利时数学家 Verhulst 对于人口增长规律的研�
 
 > 🎯
 >
-> ![y=\frac{K}{1+me^{-at}}](https://latex.codecogs.com/svg.latex?y=\frac{K}{1+me^{-at}})
+> ![y=\frac{K}{1+me^{-at}}](../img/X2120102.02124.08.07.svg)
 
 性质：
 
@@ -1208,7 +1208,7 @@ t → +∞, y → 0
 
 > 🎯
 >
-> ![y=Ka^{b^t}](https://latex.codecogs.com/svg.latex?y=Ka^{b^t})
+> ![y=Ka^{b^t}](../img/X2120102.02124.08.08.svg)
 
 Gompertz 曲线是双层指数函数，对于参数模型的不同取值，曲线有四种不同的类型
 
